@@ -14,8 +14,6 @@ namespace Zork
             var inputService = new ConsoleInputService();
 
             Game game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(gameFilename));
-            game.Output = outputService;
-            game.Input = inputService;
 
             game.Initalize(inputService, outputService);
 

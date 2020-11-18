@@ -86,7 +86,6 @@ namespace Zork
             }
             if (foundCommand != null)
             {
-                Player.Moves++;
                 Room previousRoom = Player.Location;
                 foundCommand.Action(this);
 
@@ -112,9 +111,9 @@ namespace Zork
 
         private static void Look(Game game) => game.Output.WriteLine($"{game.Player.Location}\n{game.Player.Location.Description}");
 
-    private static void Quit(Game game) => game.IsRunning = false;
+        private static void Quit(Game game) => game.IsRunning = false;
 
-    [OnDeserialized]
-    private void OnDeserialized(StreamingContext context) => Player = new Player(World, StartingLocation);
-}
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context) => Player = new Player(World, StartingLocation);
+    }
 }
