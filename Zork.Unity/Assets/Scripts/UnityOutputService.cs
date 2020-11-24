@@ -1,25 +1,33 @@
 ﻿using UnityEngine;
+using TMPro;
 using Zork;
 
 public class UnityOutputService : MonoBehaviour, IOutputService
 {
+    [SerializeField]
+    private Transform OutputTextContainer;
+
+    [SerializeField]
+    private TextMeshProUGUI TextLinePrefab;
+
     public void Write(string value)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void Write(object value)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void WriteLine(string value)
     {
-        throw new System.NotImplementedException();
+        var textLine = Instantiate(TextLinePrefab, OutputTextContainer);
+        textLine.text = value;
     }
 
     public void WriteLine(object value)
     {
-        throw new System.NotImplementedException();
+        
     }
 }

@@ -1,17 +1,57 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace Zork
 {
     public class Player
     {
+        public event EventHandler<LocationChangedEventArgs> LocationChanged;
+        public event EventHandler<int> ScoreChanged;
+        public event EventHandler<int> MovesChanged;
+
         public World World { get; }
 
-        public int Score { get; set; }
+        public int Score
+        {
+            get => _score;
+            set
+            {
+                if(_score != value)
+                {
+                    _score = value;
+                    ScoreChanged.Invoke(this, _score);
+                }
+            }
+        }
 
-        public int Moves { get; set; }
+        public int Moves
+        {
+            get => _moves;
+            set
+            {
+                if (_moves != value)
+                {
+                    _moves = value;
+                    MovesChanged?.Invoke(this, _moves);
+                }
+            }
+        }
 
         [JsonIgnore]
-        public Room Location { get; private set; }
+        public Room Location
+        {
+            get => _location;
+            private set
+            {
+                if (_location != value)
+                {
+                    _locationChangedEventArgs.PreviousLocation = _location;
+                    _location = value;
+                    _locationChangedEventArgs.NewLocation = _location;
+                    LocationChanged?.Invoke(this, _locationChangedEventArgs);
+                }
+            }
+        }
 
         public Player(World world, string startingLocation)
         {
@@ -32,5 +72,10 @@ namespace Zork
 
             return isValidMove;
         }
+
+        private Room _location;
+        private LocationChangedEventArgs _locationChangedEventArgs = new LocationChangedEventArgs();
+        private int _moves;
+        private int _score;
     }
 }
