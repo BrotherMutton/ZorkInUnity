@@ -78,7 +78,7 @@ namespace Zork
             Command foundCommand = null;
             foreach (Command command in Commands.Values)
             {
-                if (command.Verbs.Contains(inputString, StringComparer.InvariantCultureIgnoreCase))
+                if (command.Verbs.Contains(inputString.Trim(), StringComparer.InvariantCultureIgnoreCase))
                 {
                     foundCommand = command;
                     break;

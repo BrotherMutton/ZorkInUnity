@@ -49,7 +49,10 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Return) && string.IsNullOrEmpty(InputService.InputField.text) == false)
         {
+            OutputService.WriteLine($"> {InputService.InputField.text}");
             InputService.ProcessInput();
+
+            OutputService.WriteLine(string.Empty);
             InputService.InputField.Select();
             InputService.InputField.ActivateInputField();
         }
